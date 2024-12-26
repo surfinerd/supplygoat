@@ -1,6 +1,6 @@
 name: Checkov IaC Scan
 
-on: [push]
+on: workflow_dispatch
 
 jobs:
   checkov_scan:
