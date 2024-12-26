@@ -1,14 +1,16 @@
-name: Supply Chain
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: 0 0 * * 0
+name: Checkov IaC Scan
+
+on: [push]
+
 jobs:
-   bridgecrew:
+  checkov_scan:
     runs-on: ubuntu-latest
     steps:
-    - name: Run checkov
-      id: checkov
-      uses: bridgecrewio/checkov-action@master
-      env:
-        GITHUB_TOKEN: ${{secrets.THIS_IS_A_TEST_SECRET}}
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Checkov
+      run: pip3 install checkov
+
+    - name: Run Checkov
+      run: checkov -d .
